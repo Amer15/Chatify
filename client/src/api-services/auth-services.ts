@@ -1,4 +1,4 @@
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import { axiosClient } from "../config/axios-config";
 import { User } from "../types";
 import { useUserStore } from "../store/user-store";
@@ -48,7 +48,7 @@ export const loginUser = async (data: { email: string; password: string }) => {
 
 export const refreshToken = async () => {
   try {
-    await axios.post("/refresh-access-token");
+    await axiosClient.post("/users/refresh-token")
   } catch (error) {
     if (error instanceof AxiosError) {
       if (error.response?.data?.message) {
