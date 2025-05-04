@@ -7,6 +7,7 @@ import {
   login,
   logout,
   updateProfile,
+  refreshAccessToken
 } from "./controllers";
 import { validateJWTToken, validateQueryId } from "@/middlewares/validation";
 import { upload } from "@/config/multer";
@@ -18,6 +19,7 @@ userRouter.get("/users/all-users", validateJWTToken, getOtherUsers);
 userRouter.post("/users/signup", signup);
 userRouter.post("/users/login", login);
 userRouter.post("/users/logout", logout);
+userRouter.post("/users/refresh-token", refreshAccessToken);
 userRouter.put(
   "/users/update-profile",
   upload.single("profile_image"),

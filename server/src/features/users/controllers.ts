@@ -7,6 +7,7 @@ import brcypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import env from "@/env";
 import { uploadToCloudinary } from "@/config/cloudinary";
+import { UserDecoded } from "@/types";
 
 export const getAllUsers = async (_: Request, res: Response) => {
   const users: IUser[] = await User.find().select("-password");
@@ -179,5 +180,49 @@ export const updateProfile = async (req: Request, res: Response) => {
   res.status(200).json({
     message: "upload success",
     profileImage: profile_url,
+  });
+};
+
+export const refreshAccessToken = async (req: Request, res: Response) => {
+  const refreshToken = req.cookies["refreshToken"];
+  console.log(req.cookies);
+  if (!refreshToken) {
+    res.status(401).json({
+      message: "invalid token",
+    });
+  }
+
+  const decoded = jwt.verify(
+    refreshToken,
+    env.REFRESH_TOKEN_SECRET
+  ) as UserDecoded;
+
+  if ("user_id" in decoded) {
+    const user = await User.findById(decoded.user_id);
+
+    if (!user) {
+      throw new CustomError("unauthorized", 403);
+    }
+
+    const accessToken = jwt.sign({ user_id: user._id }, env.JWT_SECRET_KEY, {
+      expiresIn: "1h",
+    });
+
+    res.cookie("accessToken", accessToken, {
+      sameSite: "lax",
+      httpOnly: true,
+      maxAge: 60 * 60 * 1000,
+      secure: env.NODE_ENV === "production",
+    });
+
+    res.status(200).json({
+      message: "success",
+    });
+
+    return;
+  }
+
+  res.status(401).json({
+    message: "invalid token",
   });
 };
