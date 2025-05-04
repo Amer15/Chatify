@@ -61,7 +61,11 @@ export function validateParamsId(name: string = "id") {
   };
 }
 
-export const validateJWTToken: RequestHandler = (req, res, next) => {
+export const validateJWTToken: RequestHandler = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const token = req.cookies["accessToken"];
 
   if (!token) {
