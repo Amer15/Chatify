@@ -2,7 +2,7 @@
 
 A full-stack one to one chatting application built with modern web technologies.
 
-🔗 **Live Demo**: [https://kanban-boardz.netlify.app](https://kanban-boardz.netlify.app)
+🔗 **Live Demo**: [https://new-chatify.netlify.app](https://new-chatify.netlify.app)
 
 ## 🚀 Tech Stack
 
