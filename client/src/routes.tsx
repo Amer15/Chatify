@@ -1,7 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import HomePage from "./pages/home-page";
 import LoginPage from "./pages/login-page";
-import SettingsPage from "./pages/settings-page";
 import SignUpPage from "./pages/signup-page";
 import ProtectedRoute from "./components/protected-route";
 import ProfilePage from "./pages/profile-page";
@@ -34,10 +33,6 @@ export const router = createBrowserRouter([
         path: "/signup",
       },
     ],
-  },
-  {
-    element: <SettingsPage />,
-    path: "/settings",
   },
   {
     element: <NotFoundPage />,

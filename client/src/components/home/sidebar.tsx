@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Users } from "lucide-react";
 import { useSidebarUsers } from "../../queries/user-queries";
 import SidebarSkeleton from "./sidebar-skeleton";
@@ -6,7 +5,6 @@ import { useUserChatStore } from "../../store/chat-store";
 
 const Sidebar = () => {
   const { data, isLoading } = useSidebarUsers();
-  const [showOnlineOnly, setShowOnlineOnly] = useState(false);
   const setSelectedUser = useUserChatStore((state) => state.setSelectedUser);
   const selectUser = useUserChatStore((state) => state.selectedUser);
   const onlineUsers = useUserChatStore((state) => state.onlineUsers);
@@ -21,21 +19,6 @@ const Sidebar = () => {
         <div className="flex items-center gap-2">
           <Users className="size-6" />
           <span className="font-medium hidden lg:block">Contacts</span>
-        </div>
-        {/* TODO: Online filter toggle */}
-        <div className="mt-3 hidden lg:flex items-center gap-2">
-          <label className="cursor-pointer flex items-center gap-2">
-            <input
-              type="checkbox"
-              checked={showOnlineOnly}
-              onChange={(e) => setShowOnlineOnly(e.target.checked)}
-              className="checkbox checkbox-sm"
-            />
-            <span className="text-sm">Show online only</span>
-          </label>
-          <span className="text-xs text-zinc-500">
-            (0 online)
-          </span>
         </div>
       </div>
 

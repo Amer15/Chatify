@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { LogOut, MessageSquare, Settings, User } from "lucide-react";
+import { LogOut, MessageSquare, User } from "lucide-react";
 import { toast } from "sonner";
 import { useUserStore } from "../../store/user-store";
 import { logoutUser } from "../../api-services/auth-services";
@@ -43,17 +43,6 @@ const Navbar = () => {
           </div>
 
           <div className="flex items-center gap-2">
-            <Link
-              to={"/settings"}
-              className={`
-              btn btn-sm gap-2 transition-colors
-              
-              `}
-            >
-              <Settings className="w-4 h-4" />
-              <span className="hidden sm:inline">Settings</span>
-            </Link>
-
             {user && (
               <>
                 <Link to={"/profile"} className={`btn btn-sm gap-2`}>

@@ -61,11 +61,11 @@ const ProfilePage = () => {
       setIsUpdatingProfile(true);
       const formData = new FormData();
       formData.set("profile_image", file);
+      setSelectedFilePreview(null);
       await updateProfilePicture(formData);
       toast.success("profile picture updated!");
       setIsUpdatingProfile(false);
       setSelectedFile(null);
-      setSelectedFilePreview(null);
     } catch (error) {
       setIsUpdatingProfile(false);
       if (error instanceof Error) {
